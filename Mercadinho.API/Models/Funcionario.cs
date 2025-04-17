@@ -1,13 +1,17 @@
-namespace Mercadinho.API.Models;
+using System.ComponentModel.DataAnnotations;
 
-public class Funcionario
+namespace API.Models
 {
-    public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public decimal Salario { get; set; }
+    public class Funcionario
+    {
+        public int Id { get; set; }
 
-    public int FilialId { get; set; }
-    public Filial? Filial { get; set; }
+        [Required(ErrorMessage = "O nome do funcionário é obrigatório.")]
+        public string Nome { get; set; } = string.Empty;
 
-     public DateTime CriadoEm { get; set; } = DateTime.Now;
+        public decimal Salario { get; set; }
+        public int FilialId { get; set; }
+        public Filial? Filial { get; set; }
+        public DateTime CriadoEm { get; set; } = DateTime.Now;
+    }
 }

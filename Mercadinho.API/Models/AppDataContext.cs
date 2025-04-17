@@ -1,19 +1,29 @@
-using Mercadinho.API.Models;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Models;
 
-//Implementar a henraça da classe DbContext
 public class AppDataContext : DbContext
 {
-    //Declarar todas as classes de modelo que vão virar tabelas no banco de dados
+    // DbSets
     public DbSet<Produto> Produtos { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Filial> Filials { get; set; }
     public DbSet<Funcionario> Funcionarios { get; set; }
 
+    // Construtor necessário para a injeção de dependência
+    public AppDataContext(DbContextOptions<AppDataContext> options)
+        : base(options)
+    {
+    }
+
+    // Se preferir manter a configuração via OnConfiguring, veja a dica abaixo:
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=Ecommerce.db");
+        // Só configure se as opções ainda não tiverem sido definidas, assim não sobrescreve a configuração do DI.
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite("Data Source=Ecommerce.db");
+        }
     }
 }
