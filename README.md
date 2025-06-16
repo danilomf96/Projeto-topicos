@@ -55,6 +55,10 @@ Instale as dependências:
 
 npm install
 
+Importe o Axios:
+
+npm install axios
+
 
 Configure o endereço da API:
 Abra o arquivo onde o Axios foi configurado (src/api.ts) e ajuste a URL base, se necessário:
